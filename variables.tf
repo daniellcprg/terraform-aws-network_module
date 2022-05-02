@@ -1,8 +1,3 @@
-variable "region" {
-  description = "The region in which you want to create your resources."
-  default = "us-east-1"
-}
-
 variable "vpc_cidr" {
   description = "CIDR block for VPC"
   type        = string
