@@ -11,7 +11,7 @@ output "private_subnet_ids" {
 }
 
 output "alb_arn" {
-  value = aws_alb.shared-alb.arn
+  value = aws_lb.shared-alb.arn
 }
 
 output "target_group_arns" {
