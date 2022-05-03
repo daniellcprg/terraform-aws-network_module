@@ -10,7 +10,7 @@ variable "vpc_azs" {
   validation {
     condition = length(var.vpc_azs) > 1
     error_message = "You must specify at least 2 availability zones."
-  }
+  } 
 }
 
 variable "vpc_private_subnets" {
@@ -31,4 +31,9 @@ variable "vpc_public_subnets" {
     condition = length(var.vpc_public_subnets) > 1
     error_message = "You must specify at least 2 public subnets."
   }
+}
+
+variable "applications" {
+  description = "Applications to deploy"
+  type = list
 }
