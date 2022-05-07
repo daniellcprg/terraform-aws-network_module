@@ -128,7 +128,7 @@ resource "aws_lb_target_group" "tg" {
 
   tags = {
     "Provider"   = "terraform"
-    "Enviroment" = var.applications[count.index].environment
+    "Environment" = var.applications[count.index].environment
     "Name" = format(
     "%s-%s-%s",
       var.applications[count.index].name,
