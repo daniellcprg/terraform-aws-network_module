@@ -42,6 +42,32 @@ resource "aws_internet_gateway" "ig" {
   }
 }
 
+resource "aws_eip" "eip" {
+  vpc = true
+
+  tags = {
+    "Provider" = "terraform"
+  }
+
+  depends_on = [
+    aws_internet_gateway.ig
+  ]
+}
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.eip.id
+  subnet_id = aws_subnet.public[0].id
+  
+  tags = {
+    "Name" = "nat-gateway"
+    "Provider" = "terraform"
+  }
+
+  depends_on = [
+    aws_internet_gateway.ig
+  ]
+}
+
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 
@@ -58,6 +84,12 @@ resource "aws_route_table" "public" {
     "Provider" = "terraform"
     "Name"      = "public"
   }
+}
+
+resource "aws_route" "private" {
+  route_table_id         = aws_route_table.private.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.nat.id
 }
 
 resource "aws_route" "public" {
