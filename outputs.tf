@@ -14,7 +14,12 @@ output "alb_arn" {
   value = aws_lb.shared-alb.arn
 }
 
-output "target_group_arns" {
-  value = [for tg in aws_lb_target_group.tg : tg.arn]
+output "target_groups" {
+  value = [
+    for index, app in var.applications : {
+      application_name = app.name
+      arn = aws_lb_target_group.tg[index].arn
+    }
+  ]
 }
  
