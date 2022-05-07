@@ -122,7 +122,7 @@ resource "aws_lb" "shared-alb" {
 resource "aws_lb_target_group" "tg" {
   count = length(var.applications)
 
-  port     = 80
+  port     = var.applications[index].port
   protocol = "HTTP"
   vpc_id   = aws_vpc.main.id
 
