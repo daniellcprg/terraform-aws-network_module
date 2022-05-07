@@ -17,7 +17,7 @@ output "alb_arn" {
 output "target_groups" {
   value = [
     for index, app in var.applications : {
-      application_name = app.name
+      application_name = format("%s-%s-%s", app.name, app.type, app.environment)
       arn = aws_lb_target_group.tg[index].arn
     }
   ]

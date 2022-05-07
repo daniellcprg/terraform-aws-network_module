@@ -2,7 +2,8 @@ resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
 
   tags = {
-    "Terraform" = "true"
+    "Name" = "main"
+    "Provider" = "terraform"
   }
 }
 
@@ -14,7 +15,7 @@ resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
 
   tags = {
-    "Terraform" = "true"
+    "Provider" = "terraform"
     "Name"      = format("public-%d", count.index)
     "Tier"      = "public"
   }
@@ -27,7 +28,7 @@ resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.main.id
 
   tags = {
-    "Terraform" = "true"
+    "Provider" = "terraform"
     "Name"      = format("private-%d", count.index)
     "Tier"      = "private"
   }
@@ -37,7 +38,7 @@ resource "aws_internet_gateway" "ig" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    "Terraform" = "true"
+    "Provider" = "terraform"
   }
 }
 
@@ -45,7 +46,7 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    "Terraform" = "true"
+    "Provider" = "terraform"
     "Name"      = "private"
   }
 }
@@ -54,7 +55,7 @@ resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    "Terraform" = "true"
+    "Provider" = "terraform"
     "Name"      = "public"
   }
 }
